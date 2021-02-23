@@ -1,0 +1,306 @@
+:root{
+	--baseColor		: #e57755;
+	--baseColorA	: #e5775500;
+	--lightColor	: #e50505;
+	--lightColorA	: #e5050500;
+	--darkColor		: #9b0000;
+	
+	--size   		: 100px;
+	--fontSize		: 1.7em;
+	--fontSize2		: 10px;
+	--demoSizeSub	: 65px;
+	
+	--mar-hor		: 10px;
+	--mar-ver		: 15px;
+	
+	--right-space	: 0px;
+	--right-space2	: 0px;
+}
+     
+body{
+    background-color	: var(--baseColor);
+	overflow			: hidden;
+}
+
+.animation08{
+	transition		: 0.8s linear;
+}
+
+.utonte{
+	position		: absolute;
+	cursor			: pointer;
+	padding-top		: calc(var(--fontSize) / 10);
+	right			: var(--right-space);
+	height			: calc(var(--fontSize));
+}
+	
+.bottoni{
+    background-color: AliceBlue;
+    color			: black;
+    border-radius	: 10px;
+    width			: 60px;
+    height			: 30px;
+} 
+ 
+.divbottoni{
+    position		: absolute;
+    top				: 50%;
+    left			: 45%;
+}
+
+.chatmina{
+	border-radius	: 20px  20px 0 0;
+	padding			: 0px 0px 0px 10px;
+    height			: 100%;
+    width			: 100%;
+    background-color: var(--lightColor);
+    opacity			: 0.5;
+	margin-top		: 2%;
+	z-index			: 4;
+}
+
+.chatminaS{
+	position		: absolute;
+    right			: 5%;
+    bottom			: 0;
+    height			: 80%;
+    width			: 90%;
+    background-color: transparent;
+	transition		: 0.0s linear;
+	z-index			: 4;
+}
+
+.top10{
+	padding-top		: 10px;
+	height			: 25px;
+}
+
+.bottonclose{
+	border-radius	: 10px;
+    cursor			: pointer;
+    position		: relative;
+    right 			: 10px;
+    background-color: var(--baseColor);
+	padding			: 3px 3px 4px 3px;
+	border			: 1px solid var(--darkColor);
+	float			: right;
+	
+    
+}
+
+.msg{
+	border			: 1px black solid;
+	border-radius	: 10px;
+	max-width		: 65%;
+	padding			: 10px 5px 10px 5px;
+}
+
+.talk-bubble{
+	margin			: 20px 40px;
+	display			: inline-block;
+	position		: relative;
+	width			: 40%;
+	min-height		: 50px;
+	height			: auto;
+	border			: 1px solid #666;
+	background-color: #ffcccc;
+	padding			: var(--mar-ver) var(--mar-hor);
+	border-radius	: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.sMsg{
+	font-size		: var(--fontSize2);
+	width			: 100%;
+	display			: inline-block;
+}
+
+.tri-right-top{
+	float 			: right;
+}
+.tri-right-top:before{
+	content			: ' ';
+	position		: absolute;
+	width			: 0;
+	height			: 0;
+	left			: auto;
+	right			: -22px;
+	top				: -1px;
+	bottom			: auto;
+	border			: 21px solid;
+	border-top-width: 17px;
+	border-color	: #666 transparent transparent transparent;
+}
+.tri-right-top:after{
+	content			: ' ';
+	position		: absolute;
+	width			: 0;
+	height			: 0;
+	left			: auto;
+	right			: -19px;
+	top				: 0px;
+	bottom			: auto;
+	border			: 20px solid;
+	border-top-width: 16px;
+	border-color	: #ffcccc transparent transparent transparent;
+}
+.tri-left-top:before{
+	content			: ' ';
+	position		: absolute;
+	width			: 0;
+	height			: 0;
+	right			: auto;
+	left			: -22px;
+	top				: -1px;
+	bottom			: auto;
+	border			: 21px solid;
+	border-top-width: 17px;
+	border-color	: #666 transparent transparent transparent;
+}
+.tri-left-top:after{
+	content			: ' ';
+	position		: absolute;
+	width			: 0;
+	height			: 0;
+	right			: auto;
+	left			: -19px;
+	top				: 0px;
+	bottom			: auto;
+	border			: 20px solid;
+	border-top-width: 16px;
+	border-color	: #ffcccc transparent transparent transparent;
+}
+
+.accChat{
+	margin-left		: 5%;
+}
+
+.messaggio{
+	margin-left		: 15%;
+	margin-top		: calc( var(--mar-ver) / 2);
+}
+
+.time{
+	margin-top		: var(--fontSize2);
+	float			: right;
+}
+   
+#scrittaa{
+    color			: black;
+    text-decoration	: none;
+    position		: fixed;
+    top				: 25px;
+	font-size		: var(--fontSize);
+    left			: 60px;
+}    
+      
+#utonteName{
+	position		: absolute;
+	cursor			: pointer;
+	padding-top		: calc(var(--fontSize) / 10);
+	min-width		: 30px;
+	right			: 0;
+	top				: 20px;
+	font-size		: calc(var(--fontSize) / 2.5);
+	height			: calc(var(--fontSize));
+}
+
+#account{
+	position		: fixed;
+	top				: 20px;
+	right			: calc(var(--fontSize) / 2 + var(--fontSize) / 12);
+}
+
+#scritta{
+    position		: fixed;
+    top				: 25px;
+	font-size 		: var(--fontSize);
+	z-index			: 1;
+}
+
+#shadowT{
+	position		: absolute;
+	margin-top		: -0.5px;
+	width			: calc(100% - 15px);
+	height			: 6.5%;
+	background		: linear-gradient(var(--lightColor) 20%, var(--lightColorA));
+	z-index			: 2;
+}
+
+#shadowB{
+	position		: absolute;
+	width			: calc(100% - 15px);
+	bottom			: 35px;
+	height			: 7.5%;
+	background		: linear-gradient(var(--lightColorA), var(--lightColor) 80%);
+	z-index			: 2;
+}
+
+#scrivere{
+	position		: absolute;
+	width			: 100%;
+	bottom 			: 5px;
+	font-size 		: calc(var(--fontSize2) * 2);
+	z-index			: 3;
+	background-color: var(--lightColor);
+}
+
+#demo{
+	overflow-y		: auto;
+	height			: calc(88% - var(--demoSizeSub));
+	z-index			: 4;
+}
+
+#texto{
+	width			: calc(92% - 40px);
+	min-height		: 30px;
+	margin-top		: 5px;
+	margin-left		: 2%;
+	border-radius	: 25px 0 0 25px;
+	padding-left	: 25px;
+	z-index			: 4;
+	
+}
+
+#btnSend{
+	width			: 40px;
+	height			: 30px;
+	margin-top		: 5px;
+	border-radius	: 0 25px 25px 0;
+	z-index			: 4;
+}
+
+#autenticazione{
+	position 		: fixed;
+	background-color: AliceBlue;
+	padding			: 30px 5px 5px 5px;
+	border-radius	: 5px 0 5px 5px;
+	z-index			: 4;
+	top				: 75px;
+	right			: calc(var(--right-space) + var(--right-space2) / 3 * 2);
+	transform		: scale(0);
+	transition 		: transform 1s ease;
+	transform-origin: top right;
+}
+#autenticazione:after{
+	content			: ' ';
+	position		: absolute;
+	width			: 0;
+	height			: 0;
+	left			: auto;
+	right			: 0;
+	top				: -15px;
+	bottom			: auto;
+	border			: 20px solid;
+	border-top-width: 16px;
+	border-color	: transparent AliceBlue transparent transparent;
+}
+
+#userID, #password, #registra, #login{
+	margin-top		: 4px;
+}
+
+#registra, #login{
+	margin-left		: 4.5px;
+	width			: 65px;
+}

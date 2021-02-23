@@ -1,0 +1,256 @@
+<html>
+	<head>
+		<title>Chat</title>
+		<meta name="theme-color" content="#c22424">
+		<link rel="stylesheet" href="style/cssChat.css">
+		<meta charset="UTF-8">
+		<script src="script/jsencrypt.js"></script>
+	</head>
+	<body> 
+		<div class="menu" id="scritta">
+			<a id="scrittaa" href="#">Chat</a> 
+			<div id="account"><img class="utonte" id="utonteIma" src='img/avatarg.png' /><div id="utonteName"></div></div>
+		</div><br>
+		
+		<div id="chatminaS" class="chatminaS">
+			<div id="chatmina" class="chatmina animation08">
+				<h4 class="top10"><div id="btnClose" class="bottonclose animation08">❌</div></h4>
+				
+				<div id="shadowT"></div>
+				<div id="demo" class="animation08">
+					<input type="hidden" id="idx" value="0"/>
+					<input type="hidden" id="msg" value=""/>
+				</div>
+				<div id="shadowB" class="animation08"></div>
+				<div id="scrivere" class="animation08">
+					<input type="text" id="texto" disabled="true"/>
+					<input type="button" id="btnSend" value=">" disabled="true"/>
+				</div>
+			</div>
+		</div>
+		<div id="autenticazione">
+			
+			<input type="input" id="userID"/></br>
+			<input type="input" id="password"/></br>
+			<input type="button" id="registra" value="REG"/>
+			<input type="button" id="login" value="LOG"/>
+		</div>
+		
+		
+		<script>
+			function $i(id){return document.getElementById(id);}
+				
+			var acc = function(){
+				var abc 	= "";
+				let pass	= "";
+				function logPSK() {
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+						if (this.readyState  == 4 && this.status == 200) {
+							var arr = JSON.parse(this.responseText);
+							if(arr.length>1){
+								if(arr[1]==1){
+									$i("utonteIma").src	= "img/avatar.png";
+									acc.pass			= arr[2];
+									flag.sema 			= 0;
+									$i("texto").value	= "";
+									flag.run			= 1;
+									var script 			= document.createElement('script');
+									script.setAttribute("type","text/javascript");
+									script.setAttribute("src",arr[3]);
+									document.getElementsByTagName("head")[0].appendChild(script);
+									$i("texto").disabled 	= false;
+									$i("btnSend").disabled 	= false;
+									$i("utonteName").innerHTML = acc.abc;
+									script.onload 			= function(){ wind.sizeR(); conn.getRead();};
+								}else if(arr[1]==-1){
+									alert("Errore,\nAccount errato");
+								}
+							}					
+						}
+					};
+					xhttp.open("POST", "serverAccess.php", true);
+					xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhttp.send("U="+acc.abc+"&A="+acc.pass+"&C=0");
+				}
+				
+				function regPSK(){
+					var xhttp = new XMLHttpRequest();
+					xhttp.onreadystatechange = function() {
+						if (this.readyState == 4 && this.status == 200) {
+							var arr = JSON.parse(this.responseText);
+							if(arr.length>1){
+								if(arr[1]==1){
+									$i("utonteIma").src	= "img/avatar.png";
+									acc.pass			= arr[2];
+									flag.sema 		  	= 0;
+									$i("texto").value 	= "";
+									flag.run			= 1;
+									var script 			= document.createElement('script');
+									script.setAttribute("type","text/javascript");
+									script.setAttribute("src",arr[3]);
+									document.getElementsByTagName("head")[0].appendChild(script);
+									$i("texto"	).disabled 	= false;
+									$i("btnSend").disabled 	= false;
+									$i("utonteName").innerHTML = acc.abc;
+									script.onload 			= function(){ wind.sizeR(); conn.getRead();};
+								}else if(arr[1]==-1){
+									alert("Errore,\nAccount già presente");
+								}
+							}					
+						}
+					};
+					xhttp.open("POST", "serverAccess.php", true);
+					xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					xhttp.send("U="+acc.abc+"&A="+acc.pass+"&C=1");
+				}
+				return{
+					abc:abc,
+					pass:pass,
+					logPSK:logPSK,
+					regPSK:regPSK
+				}
+			}();
+			
+			var flag = function(){
+				var state 	= 0;
+				let run		= 0;
+				let sema	= 1;
+				return{
+					state: state,
+					run:run,
+					sema:sema
+				};
+			}();
+			
+			var crypton = function(){
+				
+				function cripta(testo,psw){
+					var testoCifrato="";
+					var c=0;
+
+					for(let i=0; i<testo.length; i++){
+						testoCifrato += String.fromCharCode((parseInt(testo.charCodeAt(i))+parseInt(psw.charCodeAt(c)))%256);
+						c++;
+						c %= psw.length;
+					}
+					return testoCifrato;
+				}
+
+				function decripta(testo,psw){
+					var testoCifrato="";
+					var c=0;
+
+					for(let i=0; i<testo.length; i++){
+						var nc = (parseInt(testo.charCodeAt(i))-parseInt(psw.charCodeAt(c)))%256;
+						nc=(nc<0? 256+nc:nc);
+						var co = String.fromCharCode(nc);
+						testoCifrato += co;
+						c++;
+						c %= psw.length;
+					}
+					return testoCifrato;
+				}
+				
+				
+				return{
+					cripta:cripta,
+					decripta:decripta
+				}
+			}();
+			
+			var clicchi = function(){
+				var btnCloseClick = $i("btnClose").addEventListener('click', function(){
+					if($i("chatmina" ).style.marginTop==0 ||  $i("chatmina").style.marginTop=="0px") {
+						$i("chatmina").style.marginTop  = ($i("chatminaS").offsetHeight-($i('btnClose').offsetHeight+20))+"px";
+						$i("scrivere").style.bottom		= "-65px";
+						$i("shadowB" ).style.bottom 		= "-"+($i("scrivere").offsetHeight)+"px";
+					}else{ 
+						$i("chatmina").style.marginTop	= "0";
+						$i("scrivere").style.bottom		= "5px";
+						$i("shadowB" ).style.bottom 		= ($i("scrivere").offsetHeight)+"px";
+					}
+					
+					setTimeout(function(){ wind.sizeR();}, 800);
+				}, false);
+			
+				var btnSendClick = $i("btnSend").addEventListener('click', function(){
+					if(flag.run==1) 
+						conn.sendMsg($i("texto").value);
+				}, false);
+				var textoClick = $i("texto").addEventListener("keyup", function(event) {
+					if (event.keyCode === 13 && flag.run==1) {
+						event.preventDefault();
+						document.getElementById("btnSend").click();
+					}
+				});
+
+				var loginClick = $i("login").addEventListener('click', function(){
+					acc.abc  = $i("userID").value;
+					acc.pass = crypton.cripta($i("password").value,$i("password").value); 
+					acc.logPSK(); 
+					$i("autenticazione").style.transform="scale(0)";
+				}, false);
+				var registraClick = $i("registra").addEventListener('click', function(){
+					acc.abc  = $i("userID").value;
+					acc.pass = crypton.cripta($i("password").value,$i("password").value);
+					acc.regPSK(); 
+					$i("autenticazione").style.transform="scale(0)";
+				}, false);
+				var utonteImaClick  = $i("utonteIma").addEventListener('click', function(){$i("autenticazione").style.transform=($i("autenticazione").style.transform=="scale(0)"? "scale(1)":"scale(0)");});
+				var utonteIma2Click = $i("utonteName").addEventListener('click', function(){$i("autenticazione").style.transform=($i("autenticazione").style.transform=="scale(0)"? "scale(1)":"scale(0)");});
+				
+			}();
+			
+			var wind = function(){
+			
+				window.onresize = function(){sizeR();};
+				window.onload  	= function(){
+					$i("autenticazione").style.transform="scale(0)"; 
+					sizeR(); 
+					$i("idx").value="0";
+					setTimeout(function(){sizeR();},1000);
+				};
+			
+					
+				function sizeR(){
+					var width  = window.innerWidth;
+					var height = window.innerHeight-150;
+					var chMTop = $i("chatminaS").offsetTop/2 + $i("chatmina").offsetTop;
+					var minAs  = Math.min(width, height);
+					var min    = Math.min(width/2, chMTop);
+					var top	   = min;
+					
+					document.documentElement.style.setProperty('--size', 		min/3 +"px");
+					
+					document.documentElement.style.setProperty("--fontSize2", 	minAs/30+"px");
+									
+					document.documentElement.style.setProperty("--mar-ver", 	minAs/40+"px");
+					document.documentElement.style.setProperty("--mar-hor", 	minAs/30+"px");
+					
+					document.documentElement.style.setProperty('--right-space',  (document.getElementById("utonteName").offsetWidth/2-document.getElementById("utonteIma").offsetWidth/2)+"px");
+					document.documentElement.style.setProperty('--right-space2', (document.getElementById("autenticazione").offsetWidth/2)+"px");
+					
+					document.documentElement.style.setProperty("--demoSizeSub",  ($i("texto").offsetHeight*2)+"px");
+					$i("chatminaS").style.maxWidth 	= height*1.5;
+					$i("shadowB").style.bottom 		= (parseInt($i("scrivere").style.bottom.replace("px",""))+$i("scrivere").clientHeight-4)+"px";
+					
+					if($i("chatmina").style.marginTop == 0 ||  $i("chatmina").style.marginTop=="0px") {
+						$i("chatmina").style.marginTop	= "0";
+						$i("scrivere").style.bottom		= "5px";
+					}else{ 
+						$i("chatmina").style.marginTop  = ($i("chatminaS").offsetHeight-($i('btnClose').offsetHeight+20))+"px";
+						$i("scrivere").style.bottom		= "-50px";
+					}
+					$i("chatminaS").style.left = (width-$i("chatmina").offsetWidth)/2;
+					
+				}
+				return{
+					sizeR:sizeR
+				}
+			}();
+			
+			
+		</script>
+	</body>
+</html>
